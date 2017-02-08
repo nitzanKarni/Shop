@@ -18,7 +18,7 @@ public class queryManager {
 			ResultSet rslt = conn.query(query);
 			while(rslt.next()) {
 				suppliers.add(new Supplier(rslt.getString("Name"),
-										   rslt.getString("Address"),
+										   rslt.getString("Adress"),
 										   rslt.getString("Phone")));
 			}
 		} catch ( Exception e) {
@@ -98,15 +98,18 @@ public class queryManager {
 	// Get certain supplier by his name
 	// !! Make More Secure !!
 	public Supplier getSupplier( String Name ) {
-		String query = "SELECT * FROM suppliers WHERE NAME = " + Name;
+		String query = "SELECT * FROM suppliers WHERE Name = ?";
 		Supplier supplier = null;
 		
 		// Execute the query
 		DBConn conn = DBConn.getDbCon();
 		try {
-			ResultSet rslt = conn.query(query);
+			PreparedStatement prpStmt = conn.conn.prepareStatement(query);
+			prpStmt.setString(1, Name);
+			ResultSet rslt = prpStmt.executeQuery();
+			rslt.next();
 			supplier = new Supplier(rslt.getString("Name"),
-					   				rslt.getString("Address"),
+					   				rslt.getString("Adress"),
 					   				rslt.getString("Phone"));
 		} catch ( Exception e) {
 			e.printStackTrace();
@@ -118,13 +121,16 @@ public class queryManager {
 	// Get certain order by his name
 	// !! Make More Secure !!
 	public Orders getOrder( String OrderName ) {
-		String query = "SELECT * FROM suppliers WHERE NAME = " + OrderName;
+		String query = "SELECT * FROM suppliers WHERE NAME = ?";
 		Orders order = null;
 			
 		// Execute the query
 		DBConn conn = DBConn.getDbCon();
 		try {
-			ResultSet rslt = conn.query(query);
+			PreparedStatement prpStmt = conn.conn.prepareStatement(query);
+			prpStmt.setString(1, OrderName);
+			ResultSet rslt = prpStmt.executeQuery();
+			rslt.next();
 			order = new Orders(rslt.getString("OrderNum"),
 					  		   this.getSupplier(rslt.getString("Supplier")),
 					  		   rslt.getDate("Date"),

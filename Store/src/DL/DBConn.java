@@ -2,7 +2,7 @@ package DL;
 import com.mysql.jdbc.Connection;
 import java.sql.*;
 import java.sql.DriverManager;
-import java.util.Properties;
+import java.util.*;
 /**
  * @desc A singleton database access class for MySQL
  * @author Ramindu
@@ -10,6 +10,7 @@ import java.util.Properties;
 public final class DBConn {
     public Connection conn;
     private Statement statement;
+    private PreparedStatement prpStmt = null;
     public static DBConn db;
     private DBConn() {
         String url= "jdbc:mysql://localhost:3306/";
@@ -43,7 +44,8 @@ public final class DBConn {
  
     }
     /**
-     *
+     * Query statement without condition
+     * 
      * @param query String The query to be executed
      * @return a ResultSet object containing the results or null if not available
      * @throws SQLException
@@ -54,6 +56,7 @@ public final class DBConn {
         ResultSet res = statement.executeQuery(query);
         return res;
     }
+    
     /**
      * @desc Method to insert data to a table
      * @param insertQuery String The Insert query
