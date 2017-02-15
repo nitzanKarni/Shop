@@ -8,7 +8,7 @@ public class Product {
 	private int Amount;
 	private int Price;
 	private Supplier Supplier;
-	private final double MULTIPLIER = 2.3;
+	private static final double MULTIPLIER = 2.3;
 	
 	/**
 	 * @param name
@@ -88,6 +88,10 @@ public class Product {
 	 */
 	public void setSupplier(Supplier supplier) {
 		Supplier = supplier;
+	}
+	
+	public static double getMult() {
+		return MULTIPLIER;
 	}
 	
 	public void Print() {

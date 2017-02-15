@@ -65,6 +65,9 @@ public class ShopManager {
 	
 	public void printInventory() {
 		System.out.println("Name    SupplierName    Amount    Price");
+		
+		//Get the most updated inventory
+		inventory = qm.getProducts();
 		for (Product product : this.getInventory()) {
 			product.Print();
 		}

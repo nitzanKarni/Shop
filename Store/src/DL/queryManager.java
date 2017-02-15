@@ -121,7 +121,7 @@ public class queryManager {
 	// Get certain order by his name
 	// !! Make More Secure !!
 	public Orders getOrder( String OrderName ) {
-		String query = "SELECT * FROM suppliers WHERE NAME = ?";
+		String query = "SELECT * FROM orders WHERE ordernum = ?";
 		Orders order = null;
 			
 		// Execute the query

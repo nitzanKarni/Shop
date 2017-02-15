@@ -12,8 +12,7 @@ public class InsertManager {
 		Supplier supplier = new Supplier(name, address,phone);
 		if( dm == null )
 			dm = new DLLManager();
-		int code = dm.addSupplier(supplier);
-		return code;
+		return dm.addSupplier(supplier);
 	}
 	
 	public int addProduct( String name, String supplier, int amount, int price ) {
@@ -25,9 +24,7 @@ public class InsertManager {
 		if( dm == null )
 			dm = new DLLManager();
 		
-		int code = dm.addProduct(product);
-		
-		return code;
+		return dm.addProduct(product);
 	}
 	
 	public int addOrder(String orderNum, String supplier, Date date, int cost) {
@@ -40,9 +37,34 @@ public class InsertManager {
 		if( dm == null )
 			dm = new DLLManager();
 		
-		int code = dm.addOrder(order);
+		return dm.addOrder(order);
 		
-		return code;
+	}
+	
+	public int addSingleOrder(String productName, int amount, String orderNum, int cost){
+		if ( qm == null ) 
+			qm = new queryManager();
+		Orders order = qm.getOrder(orderNum);
+		
+		SingleOrder sngOrder = new SingleOrder(productName, amount, order, cost);
+		
+		if(dm == null) {
+			dm = new DLLManager();
+		}
+		
+		return dm.addOrder(sngOrder);
+	}
+	
+	public int addProdFromOrder(SingleOrder sngOrder) {
+		Product prod = new Product(sngOrder.getProductName(), 
+								   sngOrder.getAmount(),
+								   (int) Math.round(sngOrder.getCost() * Product.getMult()),
+								   sngOrder.getOrder().getSupplier());
+		if(dm == null) {
+			dm = new DLLManager();
+		}
+		
+		return dm.addProduct(prod);
 	}
 	
 	

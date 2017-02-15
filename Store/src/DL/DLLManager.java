@@ -119,6 +119,40 @@ public class DLLManager {
 		return successKey;
 	}
 	
+	public int deleteProduct( String prodName ) {
+		int successKey = 0;
+		
+		String query = "DELETE from products where name = ?";
+		DBConn conn = DBConn.getDbCon();
+		
+		try {
+			PreparedStatement prpStmt = conn.conn.prepareStatement(query);
+			prpStmt.setString(1, prodName);
+			successKey = prpStmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return successKey;
+	}
+	
+	public int deleteSupplier( String supName ) {
+		int successKey = 0;
+		
+		String query = "DELETE from suppliers where name = ?";
+		DBConn conn = DBConn.getDbCon();
+		
+		try {
+			PreparedStatement prpStmt = conn.conn.prepareStatement(query);
+			prpStmt.setString(1, supName);
+			successKey = prpStmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return successKey;
+	}
+	
 	
 
 }
